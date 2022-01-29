@@ -1,0 +1,65 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<div class="card-header login-card-header">
+  <h3>{% trans "Sign Up" %}</h3>
+  <div class="d-flex justify-content-end social_icon">
+    <span><i class="fab fa-facebook-square"></i></span>
+    <span><i class="fab fa-google-plus-square"></i></span>
+    <span><i class="fab fa-twitter-square"></i></span>
+  </div>
+</div>
+
+<div class="card-body">
+  <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    {% comment %} {{ form.as_p }} {% endcomment %}
+    {% comment %} {% for field in form %} {% endcomment %}
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+        </div>
+        {% comment %} {{ field }} {% endcomment %}
+        {{ form.email }}
+      </div>
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+        </div>
+        {% comment %} {{ field }} {% endcomment %}
+        {{ form.username }}
+      </div>
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-key"></i></span>
+        </div>
+        {% comment %} {{ field }} {% endcomment %}
+        {{ form.password1 }}
+      </div>
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-key"></i></span>
+        </div>
+        {% comment %} {{ field }} {% endcomment %}
+        {{ form.password2 }}
+      </div>
+    {% comment %} {% endfor %} {% endcomment %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <div class="form-group">
+      <input type="submit" value="{% trans "Sign Up" %}" class="btn float-right login_btn">
+    </div>
+  </form>
+</div>
+<div class="card-footer">
+  <div class="d-flex justify-content-center links">
+    {% blocktrans %}Already have an account? <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
+  </div>
+</div>
+
+{% endblock %}

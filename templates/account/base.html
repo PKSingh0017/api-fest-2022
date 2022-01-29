@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <!-- fontawesome -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    {% comment %} <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" /> {% endcomment %}
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- MDB -->
+    
+    <link rel="stylesheet" href="{%static 'core/css/mdb.min.css' %}" />
+
+    <link rel="stylesheet" href="{%static 'core/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/css/login.css' %}" />
+    
+    <!-- Web fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet" />
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+        crossorigin="anonymous" />
+
+    <script type="text/javascript" src="{% static 'core/js/mdb.min.js' %}"></script>
+    {% comment %} <script type="text/javascript" src="slick/slick.min.js"></script> {% endcomment %}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    {% comment %} <script type="text/javascript" src="{% static 'core/js/scripts.js' %}"> {% endcomment %}
+
+    <script>
+        $(document).ready(function() {
+
+          $(document).scroll(function () {
+                var $nav = $(".navbar");
+                $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+            });
+        });
+    </script>
+
+
+    {% if title %}
+        <title>Urban Tandoor - {{ title }}</title>
+    {% else %}
+        <title>Urban Tandoor</title>
+    {% endif %}
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+</head>
+<body >
+  <header>
+    <div class="site-header">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar" style="background-color: transparent;">
+              <div class="container" style="padding: 10px;">
+                <div><a class="navbar-brand" href="https://urbantandoor.in/landing_page{{user.get_token}}">
+                  <img src="{% static 'img/logo.png' %}" height="50px"
+                    width="auto" alt="Urban Tandoor" /> </a></div>
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center pr-md-4" id="navbarSupportedContent">
+                  <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                    <a class="nav-item text-dark nav-link" href="{% url 'home' %}">Profile</a>
+                    <a class="nav-item text-dark nav-link" href="{% url 'account_logout' %}">Logout</a>
+                    {% else %}
+                    <a class="nav-item text-dark nav-link" href="{% url 'account_login' %}">Login</a>
+                    <li class="nav-item">
+                      <a class="nav-link text-dark" href="{% url 'account_signup' %}">Signup</a>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </div>
+          </nav>
+        </div>
+    </div>
+    </header>
+  <main role="main" id="account-body">
+    <main>
+      <div class="container login-container">
+        <div class="d-flex justify-content-center h-100">
+          
+          <div class="card login-card">
+            {% for field in form %}
+              {% for error in field.errors %}
+                <div class="alert alert-secondary">
+                  <strong>{{ error }}</strong>
+                  <button type="button" class="close ml-5" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <div class="alert alert-secondary">
+                <strong>{{ error }}</strong>
+                <button type="button" class="close ml-5" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+            {% block content %}{% endblock %}
+            
+          </div>
+        </div>
+      </div>
+  </main>
+  {% include 'account/footer.html' %}
+  {% comment %} {% include 'core/footer.html' %} {% endcomment %}
+    <script type="text/javascript" src="{% static 'core/js/mdb.min.js' %}"></script>
+</body>
+</html>
