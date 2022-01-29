@@ -66,7 +66,7 @@ class TableDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'slug'
 
 class CategoryList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = store_models.Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'slug'

@@ -11,7 +11,7 @@ urlpatterns = [
     path('baton/', include('baton.urls')),
 
     # Apps
-    path('core/', include('core.urls')),
+    path('', include('core.urls')),
 
     # Authentication
     path('accounts/', include('allauth.urls')),

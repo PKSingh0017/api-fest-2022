@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('image',)
         model = Item
 
 class TableSerializer(serializers.ModelSerializer):
